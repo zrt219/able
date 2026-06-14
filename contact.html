@@ -57,7 +57,15 @@
       </section>
 
       <section class="contact-shell" aria-label="Inquiry form">
-        <form class="inquiry-form" action="https://formsubmit.co/ablecomposing@outlook.com" method="post">
+        <form
+          class="inquiry-form"
+          action="https://formsubmit.co/ablecomposing@outlook.com"
+          data-email-form
+          data-ajax-action="https://formsubmit.co/ajax/ablecomposing@outlook.com"
+          data-success-message="Sent. Thank you."
+          data-error-message="Something went wrong. Please email ablecomposing@outlook.com."
+          method="post"
+        >
           <input type="hidden" name="_subject" value="New Able inquiry" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_captcha" value="false" />
@@ -89,6 +97,7 @@
             <textarea name="message" rows="7" required></textarea>
           </label>
           <button type="submit">Send Inquiry</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
         </form>
       </section>
     </main>

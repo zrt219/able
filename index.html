@@ -115,6 +115,10 @@
       <form
         class="subscription-form"
         action="https://formsubmit.co/ablecomposing@outlook.com"
+        data-email-form
+        data-ajax-action="https://formsubmit.co/ajax/ablecomposing@outlook.com"
+        data-success-message="Thanks. You're on the list."
+        data-error-message="Something went wrong. Please email ablecomposing@outlook.com."
         method="post"
         aria-label="Email subscription"
       >
@@ -136,6 +140,7 @@
           />
           <button type="submit">Notify Me</button>
         </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
       </form>
       <p class="copyright">@2026 ABLE</p>
     </footer>

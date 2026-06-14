@@ -590,6 +590,18 @@ h1 .nowrap span {
   opacity: 0;
 }
 
+.form-status {
+  min-height: 22px;
+  margin: 12px 0 0;
+  color: var(--footer-text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.form-status.is-error {
+  color: var(--peach);
+}
+
 .subscription-form label {
   display: block;
   margin-bottom: 18px;
@@ -638,6 +650,12 @@ h1 .nowrap span {
   background: var(--button-bg);
   box-shadow: var(--button-shadow);
   cursor: pointer;
+}
+
+.email-field button:disabled,
+.inquiry-form button:disabled {
+  cursor: progress;
+  opacity: 0.72;
 }
 
 .copyright {

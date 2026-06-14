@@ -7,6 +7,7 @@
   const themeImages = Array.from(document.querySelectorAll(".theme-image"));
   const constructionNotice = document.querySelector(".construction-notice");
   const constructionClose = document.querySelector(".construction-close");
+  const emailForms = Array.from(document.querySelectorAll("[data-email-form]"));
   const imageCache = new Map();
   let activeTheme = body.dataset.theme === "light" ? "light" : "dark";
   let isSwitchingTheme = false;
@@ -145,4 +146,65 @@
       constructionNotice.classList.add("is-hidden");
     });
   }
+
+  function setFormStatus(form, message, isError = false) {
+    const status = form.querySelector(".form-status");
+
+    if (!status) {
+      return;
+    }
+
+    status.textContent = message;
+    status.classList.toggle("is-error", isError);
+  }
+
+  emailForms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const action = form.dataset.ajaxAction || form.action;
+
+      setFormStatus(form, "Sending...");
+
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
+
+      try {
+        const response = await fetch(action, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
+          body: new FormData(form),
+        });
+        const responseText = await response.text();
+        let payload;
+
+        try {
+          payload = JSON.parse(responseText);
+        } catch (_error) {
+          throw new Error("The email service returned an unexpected response.");
+        }
+
+        if (!response.ok || payload.success !== "true") {
+          throw new Error(payload.message || "The email service could not send this message.");
+        }
+
+        form.reset();
+        setFormStatus(form, form.dataset.successMessage || "Sent. Thank you.");
+      } catch (_error) {
+        setFormStatus(
+          form,
+          form.dataset.errorMessage || "Something went wrong. Please email ablecomposing@outlook.com.",
+          true
+        );
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+      }
+    });
+  });
 })();
