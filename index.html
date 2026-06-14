@@ -112,7 +112,18 @@
         <p class="eyebrow">Subscribe</p>
         <h2>Get notified when I make something new.</h2>
       </div>
-      <form class="subscription-form" action="#" method="post" aria-label="Email subscription">
+      <form
+        class="subscription-form"
+        action="https://formsubmit.co/ablecomposing@outlook.com"
+        method="post"
+        aria-label="Email subscription"
+      >
+        <input type="hidden" name="_subject" value="New Able notification signup" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://ablemusic.vercel.app/thanks.html" />
+        <input type="hidden" name="form_name" value="Email notification signup" />
+        <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <label for="subscriber-email">Email address</label>
         <div class="email-field">
           <input

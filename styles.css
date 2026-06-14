@@ -582,6 +582,14 @@ h1 .nowrap span {
   width: 100%;
 }
 
+.form-honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 .subscription-form label {
   display: block;
   margin-bottom: 18px;
