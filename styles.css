@@ -27,6 +27,7 @@
   --button-shadow: 0 22px 52px rgba(255, 126, 94, 0.18);
   --card-bg: rgba(20, 45, 78, 0.5);
   --card-shadow: 0 26px 80px rgba(0, 0, 0, 0.18);
+  --accolade-sheen: linear-gradient(90deg, rgba(247, 238, 233, 0.045), rgba(255, 174, 141, 0.035), transparent 72%);
   --project-info-bg: linear-gradient(180deg, rgba(37, 62, 96, 0.58), rgba(27, 48, 82, 0.72));
   --project-number: rgba(247, 238, 233, 0.82);
   --body-copy: rgba(247, 238, 233, 0.74);
@@ -62,6 +63,7 @@ body[data-theme="light"] {
   --button-shadow: 0 20px 46px rgba(172, 111, 66, 0.18);
   --card-bg: rgba(255, 255, 255, 0.78);
   --card-shadow: 0 20px 60px rgba(41, 52, 63, 0.12);
+  --accolade-sheen: linear-gradient(90deg, rgba(255, 255, 255, 0.58), rgba(238, 149, 93, 0.08), transparent 76%);
   --project-info-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(252, 249, 242, 0.96));
   --project-number: rgba(32, 48, 68, 0.82);
   --body-copy: rgba(32, 48, 68, 0.78);
@@ -406,13 +408,14 @@ h1 .nowrap span {
 }
 
 .work-section,
+.accolades-section,
 .site-footer {
   width: min(100% - 48px, 1380px);
   margin: 0 auto;
 }
 
 .work-section {
-  padding: 82px 0 104px;
+  padding: 82px 0 56px;
 }
 
 .section-heading {
@@ -548,6 +551,51 @@ h1 .nowrap span {
   color: var(--body-copy);
   font-size: 15px;
   line-height: 1.65;
+}
+
+.accolades-section {
+  padding: 0 0 88px;
+}
+
+.accolade-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.26fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(26px, 5vw, 72px);
+  padding: clamp(30px, 4.2vw, 48px) clamp(0px, 2vw, 24px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--accolade-sheen);
+}
+
+.accolade-card::before {
+  position: absolute;
+  right: clamp(8px, 2vw, 28px);
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  content: "";
+  background: var(--peach);
+  box-shadow: 0 0 16px 4px rgba(255, 174, 141, 0.25);
+}
+
+.accolade-card .eyebrow {
+  margin: 0;
+  color: var(--soft);
+}
+
+.accolade-card h2 {
+  max-width: 760px;
+  margin: 0;
+  padding-right: 40px;
+  color: var(--footer-heading);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.2vw, 46px);
+  font-weight: 500;
+  line-height: 1.08;
 }
 
 .site-footer {
@@ -817,6 +865,10 @@ h1 .nowrap span {
     flex-direction: column;
   }
 
+  .accolade-card {
+    grid-template-columns: 1fr;
+  }
+
 }
 
 @media (max-width: 560px) {
@@ -875,6 +927,23 @@ h1 .nowrap span {
 
   .work-section {
     padding-top: 56px;
+  }
+
+  .accolades-section {
+    padding-bottom: 64px;
+  }
+
+  .accolade-card {
+    gap: 18px;
+    padding: 28px 0 34px;
+  }
+
+  .accolade-card::before {
+    right: 4px;
+  }
+
+  .accolade-card h2 {
+    padding-right: 0;
   }
 
   .email-field {
