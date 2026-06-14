@@ -5,3 +5,6 @@ ChatGPT Image May 20, 2026, 10_30_24 PM.png
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Vercel local project metadata
+.vercel/

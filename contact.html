@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Able</title>
+    <link rel="canonical" href="https://ablemusic.vercel.app/contact.html" />
+    <meta property="og:url" content="https://ablemusic.vercel.app/contact.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="contact-page" data-theme="dark">
+    <div class="construction-notice" role="status" aria-live="polite">
+      <span>Still under construction!</span>
+      <button class="construction-close" type="button" aria-label="Close construction notice">X</button>
+    </div>
+
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Able home">
+        <img
+          class="brand-mark theme-image"
+          src="assets/logos/av-sunburst-logo-refined-cream.png"
+          data-dark-src="assets/logos/av-sunburst-logo-refined-cream.png"
+          data-light-src="assets/logos/av-sunburst-logo-refined-navy.png"
+          alt=""
+        />
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html">Work</a>
+        <a href="index.html">Listen</a>
+        <a href="index.html#subscribe">Subscribe</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+          <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+          <span class="theme-toggle-text">Light</span>
+        </button>
+        <a class="outline-button" href="contact.html" aria-current="page">Contact</a>
+      </div>
+    </header>
+
+    <main class="contact-main">
+      <section class="contact-hero" aria-labelledby="contact-title">
+        <p class="eyebrow">Inquiries</p>
+        <h1 id="contact-title">Contact</h1>
+        <p class="intro">
+          For commissions, collaborations, programming questions, or anything that
+          needs a thoughtful musical answer.
+        </p>
+      </section>
+
+      <section class="contact-shell" aria-label="Inquiry form">
+        <div class="contact-copy">
+          <p class="eyebrow">Start here</p>
+          <h2>Tell me what you are working on.</h2>
+          <p>
+            Share the ensemble, timeline, and any details that would help shape
+            the conversation.
+          </p>
+        </div>
+
+        <form class="inquiry-form" action="#" method="post">
+          <div class="form-grid">
+            <label>
+              <span>Name</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+          </div>
+          <label>
+            <span>Inquiry type</span>
+            <select name="inquiry" required>
+              <option value="">Select one</option>
+              <option>Commission</option>
+              <option>Programming</option>
+              <option>Collaboration</option>
+              <option>General</option>
+            </select>
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="7" required></textarea>
+          </label>
+          <button type="submit">Send Inquiry</button>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      const themeButton = document.querySelector(".theme-toggle");
+      const themeButtonText = document.querySelector(".theme-toggle-text");
+      const themeImages = document.querySelectorAll(".theme-image");
+      const constructionNotice = document.querySelector(".construction-notice");
+      const constructionClose = document.querySelector(".construction-close");
+      const requestedTheme = new URLSearchParams(window.location.search).get("theme");
+      const savedTheme = localStorage.getItem("av-theme");
+      const initialTheme = requestedTheme === "light" || requestedTheme === "dark"
+        ? requestedTheme
+        : savedTheme === "light" ? "light" : "dark";
+
+      function setTheme(theme) {
+        const isLight = theme === "light";
+
+        document.body.dataset.theme = theme;
+        themeButton.setAttribute("aria-pressed", String(isLight));
+        themeButton.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+        themeButtonText.textContent = isLight ? "Dark" : "Light";
+
+        themeImages.forEach((image) => {
+          image.src = image.dataset[isLight ? "lightSrc" : "darkSrc"];
+        });
+
+        localStorage.setItem("av-theme", theme);
+      }
+
+      setTheme(initialTheme);
+
+      themeButton.addEventListener("click", () => {
+        setTheme(document.body.dataset.theme === "light" ? "dark" : "light");
+      });
+
+      constructionClose.addEventListener("click", () => {
+        constructionNotice.classList.add("is-hidden");
+      });
+    </script>
+  </body>
+</html>

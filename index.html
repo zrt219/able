@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avery Vale | Composer & Music Creative</title>
-    <link rel="canonical" href="https://able.vercel.app" />
-    <meta property="og:url" content="https://able.vercel.app" />
+    <title>Able</title>
+    <link rel="canonical" href="https://ablemusic.vercel.app" />
+    <meta property="og:url" content="https://ablemusic.vercel.app" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,8 +15,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-theme="dark">
+    <div class="construction-notice" role="status" aria-live="polite">
+      <span>Still under construction!</span>
+      <button class="construction-close" type="button" aria-label="Close construction notice">X</button>
+    </div>
+
     <header class="site-header" aria-label="Primary">
-      <a class="brand" href="#" aria-label="Avery Vale home">
+      <a class="brand" href="#" aria-label="Able home">
         <img
           class="brand-mark theme-image"
           src="assets/logos/av-sunburst-logo-refined-cream.png"
@@ -26,7 +31,9 @@
         />
       </a>
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="#ensembles">Ensembles</a>
+        <a href="#">Home</a>
+        <a href="#">Work</a>
+        <a href="#">Listen</a>
         <a href="#subscribe">Subscribe</a>
       </nav>
       <div class="header-actions">
@@ -34,7 +41,7 @@
           <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
           <span class="theme-toggle-text">Light</span>
         </button>
-        <a class="outline-button" href="#subscribe">Subscribe</a>
+        <a class="outline-button" href="contact.html">Contact</a>
       </div>
     </header>
 
@@ -56,10 +63,9 @@
             details, the big picture, and everything in between.
           </p>
           <div class="hero-actions">
-            <a class="primary-button" href="#ensembles">Explore Ensembles <span aria-hidden="true">&nearr;</span></a>
+            <a class="primary-button" href="#ensembles">Explore</a>
           </div>
         </div>
-        <a class="scroll-cue" href="#ensembles">Scroll to Explore</a>
       </section>
 
       <section class="work-section" id="ensembles">
@@ -125,6 +131,8 @@
       const themeButton = document.querySelector(".theme-toggle");
       const themeButtonText = document.querySelector(".theme-toggle-text");
       const themeImages = document.querySelectorAll(".theme-image");
+      const constructionNotice = document.querySelector(".construction-notice");
+      const constructionClose = document.querySelector(".construction-close");
       const requestedTheme = new URLSearchParams(window.location.search).get("theme");
       const savedTheme = localStorage.getItem("av-theme");
       const initialTheme = requestedTheme === "light" || requestedTheme === "dark"
@@ -150,6 +158,10 @@
 
       themeButton.addEventListener("click", () => {
         setTheme(document.body.dataset.theme === "light" ? "dark" : "light");
+      });
+
+      constructionClose.addEventListener("click", () => {
+        constructionNotice.classList.add("is-hidden");
       });
     </script>
   </body>
