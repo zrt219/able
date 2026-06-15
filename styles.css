@@ -587,15 +587,28 @@ h1 .nowrap span {
   color: var(--soft);
 }
 
+.accolade-copy {
+  max-width: 760px;
+  padding-right: 40px;
+}
+
+.accolade-rank {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.4vw, 66px);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
 .accolade-card h2 {
   max-width: 760px;
   margin: 0;
-  padding-right: 40px;
   color: var(--footer-heading);
   font-family: var(--font-display);
-  font-size: clamp(30px, 3.2vw, 46px);
+  font-size: clamp(26px, 2.7vw, 40px);
   font-weight: 500;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .site-footer {
@@ -927,23 +940,53 @@ h1 .nowrap span {
 
   .work-section {
     padding-top: 56px;
+    padding-bottom: 44px;
+  }
+
+  .ensemble-card,
+  .ensemble-card .project-info {
+    min-height: 220px;
+  }
+
+  .ensemble-card .project-info {
+    justify-content: flex-start;
+    padding: 24px 24px 28px;
+  }
+
+  .ensemble-card .project-info span {
+    margin-bottom: 18px;
   }
 
   .accolades-section {
-    padding-bottom: 64px;
+    width: min(100% - 32px, 1380px);
+    padding-bottom: 70px;
   }
 
   .accolade-card {
-    gap: 18px;
-    padding: 28px 0 34px;
+    gap: 24px;
+    padding: 34px 16px 40px;
+    border-right: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    border-radius: 8px;
   }
 
   .accolade-card::before {
-    right: 4px;
+    right: 18px;
+  }
+
+  .accolade-copy {
+    padding-right: 0;
+  }
+
+  .accolade-rank {
+    margin-bottom: 12px;
+    font-size: clamp(42px, 13vw, 58px);
   }
 
   .accolade-card h2 {
-    padding-right: 0;
+    max-width: 16ch;
+    font-size: clamp(24px, 7.4vw, 32px);
+    line-height: 1.14;
   }
 
   .email-field {
