@@ -1,5 +1,5 @@
 (() => {
-  const THEME_KEY = "av-theme";
+  const THEME_KEY = "av-theme-preference";
   const TRANSITION_MS = 240;
   const body = document.body;
   const themeButton = document.querySelector(".theme-toggle");
@@ -9,12 +9,19 @@
   const constructionClose = document.querySelector(".construction-close");
   const emailForms = Array.from(document.querySelectorAll("[data-email-form]"));
   const imageCache = new Map();
-  let activeTheme = body.dataset.theme === "light" ? "light" : "dark";
-  let isSwitchingTheme = false;
+  let activeTheme = normalizeTheme(body.dataset.theme);
+  let targetTheme = activeTheme;
+  let themeRequestId = 0;
+  let themeCleanupTimer = 0;
+
+  function normalizeTheme(theme) {
+    return theme === "dark" ? "dark" : "light";
+  }
 
   function readSavedTheme() {
     try {
-      return localStorage.getItem(THEME_KEY);
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      return savedTheme === "light" || savedTheme === "dark" ? savedTheme : null;
     } catch (_error) {
       return null;
     }
@@ -34,7 +41,7 @@
       return requested;
     }
 
-    return readSavedTheme() === "light" ? "light" : "dark";
+    return readSavedTheme() || "light";
   }
 
   function imageSourceForTheme(image, theme) {
@@ -91,38 +98,59 @@
   }
 
   function applyTheme(theme) {
-    activeTheme = theme === "light" ? "light" : "dark";
+    activeTheme = normalizeTheme(theme);
+    targetTheme = activeTheme;
     body.dataset.theme = activeTheme;
     swapThemeImages(activeTheme);
     updateThemeButton(activeTheme);
-    saveTheme(activeTheme);
   }
 
-  async function setTheme(theme) {
-    const nextTheme = theme === "light" ? "light" : "dark";
+  async function setTheme(theme, { persist = false } = {}) {
+    const nextTheme = normalizeTheme(theme);
+    const requestId = ++themeRequestId;
+    targetTheme = nextTheme;
 
-    if (isSwitchingTheme || nextTheme === activeTheme) {
+    if (themeCleanupTimer) {
+      window.clearTimeout(themeCleanupTimer);
+      themeCleanupTimer = 0;
+    }
+
+    if (nextTheme === activeTheme) {
+      body.classList.remove("is-theme-switching");
+
+      if (persist) {
+        saveTheme(nextTheme);
+      }
+
       return;
     }
 
-    isSwitchingTheme = true;
     body.classList.add("is-theme-switching");
-
-    if (themeButton) {
-      themeButton.disabled = true;
-    }
 
     try {
       await preloadThemeImages(nextTheme);
-      applyTheme(nextTheme);
-    } finally {
-      window.setTimeout(() => {
-        body.classList.remove("is-theme-switching");
-        isSwitchingTheme = false;
 
-        if (themeButton) {
-          themeButton.disabled = false;
+      if (requestId !== themeRequestId || targetTheme !== nextTheme) {
+        return;
+      }
+
+      applyTheme(nextTheme);
+
+      if (persist) {
+        saveTheme(nextTheme);
+      }
+    } finally {
+      if (requestId !== themeRequestId) {
+        return;
+      }
+
+      themeCleanupTimer = window.setTimeout(() => {
+        if (requestId !== themeRequestId) {
+          return;
         }
+
+        body.classList.remove("is-theme-switching");
+        themeCleanupTimer = 0;
       }, TRANSITION_MS);
     }
   }
@@ -132,11 +160,12 @@
 
   if (themeButton) {
     themeButton.addEventListener("click", () => {
-      const nextTheme = activeTheme === "light" ? "dark" : "light";
-      setTheme(nextTheme).catch(() => {
+      const nextTheme = targetTheme === "light" ? "dark" : "light";
+      setTheme(nextTheme, { persist: true }).catch(() => {
+        themeRequestId += 1;
+        targetTheme = activeTheme;
         body.classList.remove("is-theme-switching");
-        isSwitchingTheme = false;
-        themeButton.disabled = false;
+        updateThemeButton(activeTheme);
       });
     });
   }
