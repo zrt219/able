@@ -969,7 +969,9 @@ h1 .nowrap span {
   }
 
   .site-header {
-    position: absolute;
+    background: color-mix(in srgb, var(--card-bg) 82%, transparent);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(18px);
   }
 
   .main-nav {
