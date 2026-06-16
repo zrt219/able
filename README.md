@@ -6,8 +6,8 @@ Live site: https://ablemusic.vercel.app
 
 ## Files
 
-- `index.html` - Homepage markup
+- `home.html` - Homepage markup
 - `styles.css` - Responsive visual styling
 - `assets/` - Generated website imagery
 
-Open `index.html` directly in a browser to view the site.
+Use the live `/home` route, or open `home.html` directly in a browser to view the site.

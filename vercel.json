@@ -17,11 +17,5 @@
       "destination": "/home",
       "permanent": true
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/home",
-      "destination": "/index.html"
-    }
   ]
 }
