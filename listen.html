@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thanks | Able</title>
-    <link rel="canonical" href="https://ablemusic.vercel.app/thanks.html" />
-    <meta property="og:url" content="https://ablemusic.vercel.app/thanks.html" />
+    <title>Listen | Able</title>
+    <link rel="canonical" href="https://ablemusic.vercel.app/listen.html" />
+    <meta property="og:url" content="https://ablemusic.vercel.app/listen.html" />
     <link rel="icon" type="image/png" href="assets/logos/av-sunburst-logo-refined-navy.png" />
     <link rel="apple-touch-icon" href="assets/logos/av-sunburst-logo-refined-navy.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,8 +34,8 @@
       </a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
-        <a href="index.html">Work</a>
-        <a href="index.html">Listen</a>
+        <a href="index.html#ensembles">Work</a>
+        <a href="index.html#accolades-title">Listen</a>
         <a href="index.html#subscribe">Subscribe</a>
       </nav>
       <div class="header-actions">
@@ -47,17 +47,21 @@
       </div>
     </header>
 
-    <main class="contact-main thank-you-main">
-      <section class="contact-hero thank-you-hero" aria-labelledby="thanks-title">
-        <p class="eyebrow">Sent</p>
-        <h1 id="thanks-title">Thank you.</h1>
-        <p class="intro">Your message is on its way to Able.</p>
-        <div class="hero-actions">
-          <a class="primary-button" href="index.html">Back Home</a>
+    <main class="contact-main">
+      <section class="listen-shell" aria-labelledby="listen-title">
+        <div class="listen-card">
+          <p class="eyebrow">Private Listen</p>
+          <h1 id="listen-title">Quintet in C Major</h1>
+          <p class="intro">Use the player below to listen to the piece.</p>
+          <p class="locked-message" data-locked-message>
+            This listening page is locked. Return to the accolade link and enter the password.
+          </p>
+          <audio class="audio-player" controls preload="metadata" hidden data-protected-audio></audio>
         </div>
       </section>
     </main>
 
     <script src="site.js?v=piece-access"></script>
+    <script src="listen.js?v=piece-access"></script>
   </body>
 </html>

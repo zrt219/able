@@ -1,10 +1,13 @@
 (() => {
   const THEME_KEY = "av-theme-preference";
+  const PIECE_ACCESS_KEY = "able-piece-access";
+  const PIECE_PASSWORD_HASH = "fefc87b37c6b7a87137ec974584b16b71f3635bbe739550e4be025525df17a92";
   const TRANSITION_MS = 240;
   const body = document.body;
   const themeButton = document.querySelector(".theme-toggle");
   const themeButtonText = document.querySelector(".theme-toggle-text");
   const themeImages = Array.from(document.querySelectorAll(".theme-image"));
+  const protectedListenLinks = Array.from(document.querySelectorAll("[data-protected-listen]"));
   const constructionNotice = document.querySelector(".construction-notice");
   const constructionClose = document.querySelector(".construction-close");
   const emailForms = Array.from(document.querySelectorAll("[data-email-form]"));
@@ -169,6 +172,81 @@
       });
     });
   }
+
+  async function hashValue(value) {
+    if (!window.crypto?.subtle || !window.TextEncoder) {
+      throw new Error("Password verification is unavailable in this browser.");
+    }
+
+    const bytes = new TextEncoder().encode(value);
+    const digest = await window.crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  }
+
+  function grantPieceAccess() {
+    try {
+      localStorage.setItem(PIECE_ACCESS_KEY, String(Date.now()));
+    } catch (_error) {
+      // If storage is unavailable, the player page will remain locked.
+    }
+  }
+
+  function piecePlayerUrl(link) {
+    const url = new URL(link.href, window.location.href);
+    url.searchParams.set("access", PIECE_PASSWORD_HASH);
+    return url.href;
+  }
+
+  async function unlockPiece(link) {
+    const password = window.prompt("Enter the password to listen.");
+
+    if (password === null) {
+      return;
+    }
+
+    const playerWindow = window.open("about:blank", "_blank");
+
+    if (playerWindow) {
+      playerWindow.document.title = "Opening player...";
+      playerWindow.document.body.textContent = "Opening player...";
+    }
+
+    try {
+      const passwordHash = await hashValue(password);
+
+      if (passwordHash !== PIECE_PASSWORD_HASH) {
+        if (playerWindow) {
+          playerWindow.close();
+        }
+
+        window.alert("Incorrect password.");
+        return;
+      }
+
+      grantPieceAccess();
+      const playerUrl = piecePlayerUrl(link);
+
+      if (playerWindow) {
+        playerWindow.opener = null;
+        playerWindow.location.href = playerUrl;
+      } else {
+        window.location.href = playerUrl;
+      }
+    } catch (error) {
+      if (playerWindow) {
+        playerWindow.close();
+      }
+
+      window.alert(error.message || "Unable to open the player.");
+    }
+  }
+
+  protectedListenLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      unlockPiece(link);
+    });
+  });
 
   if (constructionClose && constructionNotice) {
     constructionClose.addEventListener("click", () => {

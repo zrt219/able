@@ -611,6 +611,26 @@ h1 .nowrap span {
   line-height: 1.1;
 }
 
+.piece-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding-bottom: 10px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 174, 141, 0.7);
+}
+
+.piece-link::after {
+  content: "\2197";
+  font-size: 14px;
+  line-height: 1;
+}
+
 .site-footer {
   position: relative;
   display: grid;
@@ -756,6 +776,40 @@ h1 .nowrap span {
   padding: clamp(44px, 6vw, 76px) 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+
+.listen-shell {
+  width: min(100%, 760px);
+  margin: 0 auto;
+}
+
+.listen-card {
+  padding: clamp(32px, 6vw, 62px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+
+.listen-card h1 {
+  margin-bottom: 20px;
+  font-size: clamp(52px, 8vw, 86px);
+}
+
+.listen-card .intro {
+  margin-bottom: 34px;
+}
+
+.audio-player {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.locked-message {
+  margin: 0;
+  color: var(--footer-text);
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .inquiry-form {
@@ -987,6 +1041,16 @@ h1 .nowrap span {
     max-width: 16ch;
     font-size: clamp(24px, 7.4vw, 32px);
     line-height: 1.14;
+  }
+
+  .piece-link {
+    margin-top: 20px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .listen-card {
+    padding: 30px 22px 34px;
   }
 
   .email-field {
