@@ -611,6 +611,22 @@ h1 .nowrap span {
   line-height: 1.1;
 }
 
+.piece-note {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.piece-note a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 174, 141, 0.7);
+  text-underline-offset: 4px;
+}
+
 .piece-link {
   display: inline-flex;
   align-items: center;
@@ -1041,6 +1057,12 @@ h1 .nowrap span {
     max-width: 16ch;
     font-size: clamp(24px, 7.4vw, 32px);
     line-height: 1.14;
+  }
+
+  .piece-note {
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.55;
   }
 
   .piece-link {
