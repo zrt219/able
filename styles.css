@@ -27,6 +27,9 @@
   --button-shadow: 0 22px 52px rgba(255, 126, 94, 0.18);
   --card-bg: rgba(20, 45, 78, 0.5);
   --card-shadow: 0 26px 80px rgba(0, 0, 0, 0.18);
+  --header-veil:
+    linear-gradient(180deg, rgba(6, 17, 36, 0.98) 0%, rgba(6, 17, 36, 0.93) 72%, rgba(6, 17, 36, 0) 100%);
+  --header-veil-height: clamp(118px, 10vw, 158px);
   --accolade-sheen: linear-gradient(90deg, rgba(247, 238, 233, 0.045), rgba(255, 174, 141, 0.035), transparent 72%);
   --project-info-bg: linear-gradient(180deg, rgba(37, 62, 96, 0.58), rgba(27, 48, 82, 0.72));
   --project-number: rgba(247, 238, 233, 0.82);
@@ -63,6 +66,8 @@ body[data-theme="light"] {
   --button-shadow: 0 20px 46px rgba(172, 111, 66, 0.18);
   --card-bg: rgba(255, 255, 255, 0.78);
   --card-shadow: 0 20px 60px rgba(41, 52, 63, 0.12);
+  --header-veil:
+    linear-gradient(180deg, rgba(253, 249, 241, 0.97) 0%, rgba(253, 249, 241, 0.9) 72%, rgba(253, 249, 241, 0) 100%);
   --accolade-sheen: linear-gradient(90deg, rgba(255, 255, 255, 0.58), rgba(238, 149, 93, 0.08), transparent 76%);
   --project-info-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(252, 249, 242, 0.96));
   --project-number: rgba(32, 48, 68, 0.82);
@@ -101,6 +106,18 @@ body::before {
     linear-gradient(90deg, var(--grain-line-b) 1px, transparent 1px);
   background-size: 160px 160px;
   mix-blend-mode: var(--grain-blend);
+}
+
+body::after {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 15;
+  height: var(--header-veil-height);
+  pointer-events: none;
+  content: "";
+  background: var(--header-veil);
 }
 
 a {
@@ -974,6 +991,10 @@ h1 .nowrap span {
     background: transparent;
     box-shadow: none;
     backdrop-filter: none;
+  }
+
+  body::after {
+    display: none;
   }
 
   .main-nav {
