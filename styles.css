@@ -172,6 +172,7 @@ body.is-theme-switching .theme-image {
 .site-header {
   position: fixed;
   top: 0;
+  right: 0;
   left: 0;
   z-index: 20;
   display: grid;
